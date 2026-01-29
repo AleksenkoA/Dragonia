@@ -13,47 +13,145 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header" id="header">
-        <div class="container">
-            <div class="header__inner">
-                <button class="header__sidebar-toggle" id="sidebar-toggle" aria-label="Sidebar umschalten">
-                    <span>☰</span>
-                </button>
-                <a href="#hero" class="header__logo">
-                    <img src="assets/images/logo.png" alt="Dragonia Casino" class="logo-image">
-                </a>
-                <nav class="header__nav" id="nav">
-                    <a href="#key-facts" class="nav-link">Daten</a>
-                    <a href="#bonuses" class="nav-link">Boni</a>
-                    <a href="#games" class="nav-link">Spiele</a>
-                    <a href="#banking" class="nav-link">Banking</a>
-                    <a href="#advantages" class="nav-link">Vorteile</a>
-                    <a href="#faq" class="nav-link">FAQ</a>
-                </nav>
-                <div class="header__actions">
-                    <button class="header__search" id="header-search" aria-label="Suchen">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.35-4.35"></path>
-                        </svg>
-                    </button>
-                    <button class="header__profile" id="header-profile" aria-label="Konto">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                    </button>
-                </div>
-                <button class="header__cta" onclick="window.location.href='#go'">Jetzt Spielen</button>
-                <button class="header__burger" id="burger" aria-label="Menü umschalten">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+    <div class="page-wrapper">
+    <!-- Left Sidebar - Always Visible -->
+    <aside class="sidebar sidebar--always-visible" id="sidebar">
+        <div class="sidebar__logo">
+            <a href="#hero">
+                <img src="assets/images/logo.png" alt="Dragonia Casino" class="logo-image">
+            </a>
+        </div>
+        
+        <!-- Spin Rally Section -->
+        <div class="sidebar__spin-rally">
+            <div class="spin-rally-box">
+                <p class="spin-rally-title">Spin Rally starts soon!</p>
+                <div class="spin-rally-countdown" id="spin-rally-countdown">00:16</div>
+                <button class="btn btn--small">OPT IN</button>
             </div>
         </div>
-    </header>
+
+        <nav class="sidebar__nav">
+            <a href="#bonus-crab" class="sidebar__link">
+                <span class="sidebar__icon">🦀</span>
+                <span class="sidebar__text">BONUS CRAB</span>
+            </a>
+            <a href="#wheel" class="sidebar__link">
+                <span class="sidebar__icon">🎡</span>
+                <span class="sidebar__text">WHEEL OF FORTUNE</span>
+            </a>
+            <a href="#promotions" class="sidebar__link">
+                <span class="sidebar__icon">
+                    <img src="assets/images/promotions.png" alt="Promotions" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='🎁';">
+                </span>
+                <span class="sidebar__text">PROMOTIONS</span>
+            </a>
+            <a href="#challenges" class="sidebar__link">
+                <span class="sidebar__icon">🎯</span>
+                <span class="sidebar__text">CHALLENGES</span>
+            </a>
+            <a href="#tournaments" class="sidebar__link">
+                <span class="sidebar__icon">
+                    <img src="assets/images/tournaments.png" alt="Tournaments" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='🏆';">
+                </span>
+                <span class="sidebar__text">TOURNAMENTS</span>
+            </a>
+            <a href="#spin-rally" class="sidebar__link">
+                <span class="sidebar__icon">
+                    <img src="assets/images/spin-rally.png" alt="Spin Rally" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='🎪';">
+                </span>
+                <span class="sidebar__text">SPIN RALLY</span>
+            </a>
+            <a href="#shop" class="sidebar__link">
+                <span class="sidebar__icon">🛒</span>
+                <span class="sidebar__text">SHOP</span>
+            </a>
+            <a href="#vip" class="sidebar__link">
+                <span class="sidebar__icon">👑</span>
+                <span class="sidebar__text">VIP LEVELS</span>
+            </a>
+            <a href="#casino" class="sidebar__link">
+                <span class="sidebar__icon">🎰</span>
+                <span class="sidebar__text">CASINO</span>
+            </a>
+            <a href="#live-casino" class="sidebar__link">
+                <span class="sidebar__icon">
+                    <img src="assets/images/live-casino.png" alt="Live Casino" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='🎲';">
+                </span>
+                <span class="sidebar__text">LIVE CASINO</span>
+            </a>
+        </nav>
+
+        <div class="sidebar__footer">
+            <button class="sidebar__lang">🇬🇧 ENGLISH</button>
+            <a href="#help" class="sidebar__help">❓ HELP CENTRE</a>
+        </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+        <!-- Top Header -->
+        <header class="header" id="header">
+            <div class="header__top">
+                <div class="header__search-wrapper">
+                    <input type="text" class="header__search-input" placeholder="Q Games, Categories, Providers" id="header-search-input">
+                </div>
+                <div class="header__actions">
+                    <button class="header__btn header__btn--login" id="header-login">LOG IN</button>
+                    <button class="header__btn header__btn--register" id="header-register">REGISTER</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+    <!-- Welcome Bonus Banner -->
+    <section class="welcome-banner" id="welcome-banner">
+        <div class="welcome-banner__inner">
+            <div class="welcome-banner__content">
+                <h2 class="welcome-banner__title">CASINO WELCOME BONUS</h2>
+                <p class="welcome-banner__subtitle">100% up to €500 + 200 FS</p>
+                <button class="btn btn--primary btn--large" onclick="window.location.href='#go'">JOIN NOW</button>
+            </div>
+            <div class="welcome-banner__image">
+                <img src="assets/images/hero.webp" alt="Welcome Bonus" loading="eager">
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Categories Tabs -->
+    <section class="game-categories" id="game-categories">
+        <div class="game-categories__tabs">
+            <button class="game-category-tab active" data-category="providers">PROVIDERS</button>
+            <button class="game-category-tab" data-category="top">TOP</button>
+            <button class="game-category-tab" data-category="new">NEW</button>
+            <button class="game-category-tab" data-category="popular">POPULAR</button>
+            <button class="game-category-tab" data-category="exclusive">EXCLUSIVE</button>
+            <button class="game-category-tab" data-category="live">TOP LIVE CASINO GAMES</button>
+            <button class="game-category-tab" data-category="roulette">ROULETTE</button>
+            <button class="game-category-tab" data-category="game-shows">GAME SHOWS</button>
+            <button class="game-category-tab" data-category="blackjack">BLACKJACK</button>
+        </div>
+    </section>
+
+    <!-- Spin Rally Section -->
+    <section class="spin-rally-section" id="spin-rally">
+        <div class="container">
+            <h2 class="section-title">Spin Rally</h2>
+            <p class="section-subtitle">New Rally every 20 minutes - spin and win!</p>
+            <div class="spin-rally__games">
+                <div class="spin-rally-game-card">
+                    <div class="spin-rally-game-card__info">
+                        <p class="spin-rally-game-card__min-bet">Min. bet: €0.20</p>
+                        <p class="spin-rally-game-card__prize">Prize pool: €50</p>
+                        <p class="spin-rally-game-card__starts">Starts at: <span class="countdown">00:20</span></p>
+                    </div>
+                    <button class="btn btn--small">OPT IN</button>
+                </div>
+                <!-- More game cards can be added here -->
+            </div>
+        </div>
+    </section>
 
     <!-- Hero Section -->
     <section class="hero" id="hero">
@@ -616,8 +714,8 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
+        <!-- Footer -->
+        <footer class="footer">
         <div class="container">
             <div class="footer__inner">
                 <div class="footer__content">
@@ -641,7 +739,8 @@
                 <p class="footer__copyright">© 2026 Dragonia Casino. Alle Rechte vorbehalten.</p>
             </div>
         </div>
-    </footer>
+        </footer>
+    </div>
 
     <!-- Search Modal -->
     <div class="modal-overlay" id="search-modal-overlay">
@@ -732,49 +831,8 @@
         </div>
     </div>
 
-    <!-- Left Sidebar -->
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-    <aside class="sidebar" id="sidebar">
-        <button class="sidebar__close" id="sidebar-close" aria-label="Sidebar schließen">×</button>
-        <nav class="sidebar__nav">
-            <a href="#key-facts" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/promotions.png" alt="Daten" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='📊';">
-                </span>
-                <span class="sidebar__text">Daten</span>
-            </a>
-            <a href="#bonuses" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/jackpots.png" alt="Boni" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='🎁';">
-                </span>
-                <span class="sidebar__text">Boni</span>
-            </a>
-            <a href="#games" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/live-casino.png" alt="Spiele" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='🎮';">
-                </span>
-                <span class="sidebar__text">Spiele</span>
-            </a>
-            <a href="#banking" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/live-betting.png" alt="Banking" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='💳';">
-                </span>
-                <span class="sidebar__text">Banking</span>
-            </a>
-            <a href="#advantages" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/spin-rally.png" alt="Vorteile" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='⭐';">
-                </span>
-                <span class="sidebar__text">Vorteile</span>
-            </a>
-            <a href="#faq" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/tournaments.png" alt="FAQ" loading="lazy" onerror="this.style.display='none'; this.parentElement.innerHTML='❓';">
-                </span>
-                <span class="sidebar__text">FAQ</span>
-            </a>
-        </nav>
-    </aside>
+        </main>
+    </div>
 
     <script defer src="assets/js/script.js"></script>
     
@@ -827,5 +885,6 @@
         ]
     }
     </script>
+    </div>
 </body>
 </html>

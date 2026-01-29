@@ -2,6 +2,10 @@
 
 Landing page для Dragonia Casino на немецком языке.
 
+**GitHub Repository:** https://github.com/AleksenkoA/Dragonia
+
+**Live Site Reference:** https://dragonia.com/en/
+
 ## Структура проекта
 
 ```
@@ -50,9 +54,21 @@ dragonia-casino-landing/
 
 ## Использование
 
-1. Скопируйте изображения из оригинального проекта или добавьте свои
+1. Скопируйте изображения из оригинального проекта или добавьте свои (см. [IMAGES_GUIDE.md](IMAGES_GUIDE.md))
 2. Откройте `index.html` в браузере
 3. Настройте пути к изображениям при необходимости
+
+## Загрузка на GitHub
+
+```bash
+# Если еще не сделано:
+git add .
+git commit -m "Initial commit: Dragonia Casino landing page"
+git branch -M main
+git push -u origin main
+```
+
+**Важно:** Убедитесь, что репозиторий на GitHub пустой или используйте `git push -u origin main --force` (осторожно!)
 
 ## Технологии
 

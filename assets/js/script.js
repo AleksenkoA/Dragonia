@@ -455,3 +455,99 @@
         });
     }
 })();
+
+// Game Categories Tabs Functionality
+(function() {
+    const categoryTabs = document.querySelectorAll('.game-category-tab');
+    
+    if (categoryTabs.length > 0) {
+        categoryTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                categoryTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                console.log('Selected category:', category);
+                // Here you can add logic to filter games by category
+                // For now, just update the active state
+            });
+        });
+    }
+})();
+
+// Spin Rally Countdown Timer
+(function() {
+    const countdownElements = document.querySelectorAll('#spin-rally-countdown, .countdown');
+    
+    function updateCountdown(element, minutes, seconds) {
+        const mins = String(minutes).padStart(2, '0');
+        const secs = String(seconds).padStart(2, '0');
+        element.textContent = `${mins}:${secs}`;
+    }
+    
+    function startCountdown(element, initialMinutes = 20) {
+        let totalSeconds = initialMinutes * 60;
+        
+        const interval = setInterval(() => {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            
+            updateCountdown(element, minutes, seconds);
+            
+            if (totalSeconds <= 0) {
+                clearInterval(interval);
+                // Reset to 20 minutes when countdown reaches 0
+                totalSeconds = 20 * 60;
+                setTimeout(() => startCountdown(element, 20), 1000);
+            } else {
+                totalSeconds--;
+            }
+        }, 1000);
+    }
+    
+    countdownElements.forEach(element => {
+        // Parse initial time from element text (format: "MM:SS")
+        const initialText = element.textContent.trim();
+        const [mins, secs] = initialText.split(':').map(Number);
+        const initialMinutes = (mins || 20) + (secs || 0) / 60;
+        
+        startCountdown(element, Math.ceil(initialMinutes));
+    });
+})();
+
+// Header Search Input Functionality
+(function() {
+    const headerSearchInput = document.getElementById('header-search-input');
+    const searchModal = document.getElementById('search-modal');
+    const searchModalOverlay = document.getElementById('search-modal-overlay');
+    const searchInput = document.getElementById('search-input');
+    
+    if (headerSearchInput && searchModalOverlay) {
+        // Open search modal on input focus
+        headerSearchInput.addEventListener('focus', function() {
+            if (searchModalOverlay) {
+                searchModalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                // Focus on search input in modal after animation
+                setTimeout(() => {
+                    if (searchInput) {
+                        searchInput.focus();
+                        // Copy text from header input to modal input
+                        if (headerSearchInput.value) {
+                            searchInput.value = headerSearchInput.value;
+                            // Trigger search
+                            searchInput.dispatchEvent(new Event('input'));
+                        }
+                    }
+                }, 300);
+            }
+        });
+        
+        // Also open on click
+        headerSearchInput.addEventListener('click', function() {
+            this.focus();
+        });
+    }
+})();

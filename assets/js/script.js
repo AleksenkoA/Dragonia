@@ -28,81 +28,219 @@
     }
 })();
 
-// Sidebar toggle (for mobile)
+// Sidebar toggle and close functionality - ПРОСТАЯ И НАДЕЖНАЯ ЛОГИКА
 (function() {
+    'use strict';
+    
     const sidebarToggle = document.getElementById('sidebar-toggle');
     const sidebar = document.getElementById('sidebar');
-    const sidebarClose = document.getElementById('sidebar-close');
     const sidebarOverlay = document.getElementById('sidebar-overlay');
     
-    // Only for mobile - sidebar is always visible on desktop
-    function toggleSidebar() {
-        if (sidebar && sidebar.classList.contains('sidebar--always-visible')) {
-            if (window.innerWidth <= 992) {
-                const isActive = sidebar.classList.contains('active');
-                if (isActive) {
-                    sidebar.classList.remove('active');
-                    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
-                    document.body.style.overflow = '';
-                } else {
-                    sidebar.classList.add('active');
-                    if (sidebarOverlay) sidebarOverlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-            }
-        } else if (sidebar && sidebarOverlay) {
-            // Old sidebar behavior
-            const isActive = sidebar.classList.contains('active');
-            if (isActive) {
-                sidebar.classList.remove('active');
-                sidebarOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            } else {
-                sidebar.classList.add('active');
-                sidebarOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        }
+    // Проверка, мобильное ли устройство
+    function isMobile() {
+        return window.innerWidth <= 992;
     }
     
+    // ПРОСТАЯ функция закрытия сайдбара - работает везде
     function closeSidebar() {
+        console.log('closeSidebar called, isMobile:', isMobile()); // Для отладки
+        
         if (sidebar) {
+            console.log('Before remove:', sidebar.classList.contains('active')); // Для отладки
             sidebar.classList.remove('active');
-            if (sidebarOverlay) sidebarOverlay.classList.remove('active');
-            document.body.style.overflow = '';
+            console.log('After remove:', sidebar.classList.contains('active')); // Для отладки
+            
+            // Принудительно убираем left на мобильных
+            if (isMobile()) {
+                sidebar.style.left = '-100%';
+                sidebar.style.setProperty('left', '-100%', 'important');
+                console.log('Set left to -100%, computed:', window.getComputedStyle(sidebar).left); // Для отладки
+            } else {
+                // На десктопе скрываем сайдбар через left: -100%
+                sidebar.style.left = '-100%';
+                sidebar.style.setProperty('left', '-100%', 'important');
+                sidebar.style.width = '0';
+                sidebar.style.setProperty('width', '0', 'important');
+                sidebar.style.minWidth = '0';
+                sidebar.style.setProperty('min-width', '0', 'important');
+                console.log('Desktop: Set left to -100%, width to 0'); // Для отладки
+            }
+        }
+        if (sidebarOverlay) {
+            sidebarOverlay.classList.remove('active');
+            sidebarOverlay.style.display = 'none';
+            sidebarOverlay.style.opacity = '0';
+            sidebarOverlay.style.visibility = 'hidden';
+        }
+        document.body.style.overflow = '';
+        
+        // Обновляем margin-left у main-wrapper на десктопе
+        if (!isMobile()) {
+            const mainWrapper = document.querySelector('.main-wrapper');
+            if (mainWrapper) {
+                mainWrapper.style.marginLeft = '0';
+                console.log('Desktop: Set main-wrapper margin-left to 0'); // Для отладки
+            }
         }
     }
     
-    if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', toggleSidebar);
+    // Функция открытия сайдбара
+    function openSidebar() {
+        if (sidebar) {
+            if (isMobile()) {
+                sidebar.classList.add('active');
+            } else {
+                // На десктопе восстанавливаем сайдбар
+                sidebar.style.left = '';
+                sidebar.style.removeProperty('left');
+                sidebar.style.width = '';
+                sidebar.style.removeProperty('width');
+                sidebar.style.minWidth = '';
+                sidebar.style.removeProperty('min-width');
+                console.log('Desktop: Restored sidebar'); // Для отладки
+            }
+        }
+        if (sidebarOverlay && isMobile()) {
+            sidebarOverlay.classList.add('active');
+        }
+        if (isMobile()) {
+            document.body.style.overflow = 'hidden';
+        }
     }
     
-    if (sidebarClose && sidebar) {
-        sidebarClose.addEventListener('click', closeSidebar);
+    // Функция переключения сайдбара - работает везде
+    function toggleSidebar() {
+        if (sidebar) {
+            const isHidden = isMobile() 
+                ? !sidebar.classList.contains('active')
+                : sidebar.style.left === '-100%' || sidebar.style.width === '0';
+            
+            if (isHidden) {
+                openSidebar();
+            } else {
+                closeSidebar();
+            }
+        }
     }
     
-    if (sidebarOverlay && sidebar) {
-        sidebarOverlay.addEventListener('click', closeSidebar);
+    // Обработчик для кнопки открытия сайдбара
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleSidebar();
+        });
     }
     
-    // Close sidebar when clicking on links (mobile only)
+    // ПРЯМОЙ обработчик для кнопки закрытия - САМЫЙ ПРОСТОЙ ВАРИАНТ
+    // Ждем полной загрузки DOM
+    function initCloseButton() {
+        const closeBtn = document.getElementById('sidebar-close');
+        if (closeBtn) {
+            console.log('Close button found'); // Для отладки
+            
+            // Удаляем все старые обработчики
+            const newBtn = closeBtn.cloneNode(true);
+            closeBtn.parentNode.replaceChild(newBtn, closeBtn);
+            
+            // ПРОСТОЙ обработчик клика
+            newBtn.addEventListener('click', function(e) {
+                console.log('Close button clicked'); // Для отладки
+                e.preventDefault();
+                e.stopPropagation();
+                closeSidebar();
+            });
+            
+            // Дополнительно через onclick
+            newBtn.onclick = function(e) {
+                console.log('Close button onclick'); // Для отладки
+                e.preventDefault();
+                e.stopPropagation();
+                closeSidebar();
+                return false;
+            };
+        } else {
+            console.error('Close button not found!');
+        }
+    }
+    
+    // Инициализация
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initCloseButton);
+    } else {
+        // Если DOM уже загружен, ждем немного для гарантии
+        setTimeout(initCloseButton, 100);
+    }
+    
+    // Делегирование на document - РЕЗЕРВНЫЙ ВАРИАНТ
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'sidebar-close') {
+            console.log('Document click handler'); // Для отладки
+            e.preventDefault();
+            e.stopPropagation();
+            closeSidebar();
+        }
+    }, true);
+    
+    // Закрытие при клике на overlay
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', function(e) {
+            if (e.target === sidebarOverlay && isMobile()) {
+                closeSidebar();
+            }
+        });
+    }
+    
+    // Закрытие при клике на ссылки (только мобильные)
     if (sidebar) {
         const sidebarLinks = sidebar.querySelectorAll('.sidebar__link');
         sidebarLinks.forEach(link => {
             link.addEventListener('click', function() {
-                if (window.innerWidth <= 992) {
+                if (isMobile()) {
                     setTimeout(closeSidebar, 300);
                 }
             });
         });
     }
     
-    // Close sidebar on Escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && sidebar && sidebar.classList.contains('active')) {
+    // Закрытие по Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && isMobile() && sidebar && sidebar.classList.contains('active')) {
             closeSidebar();
         }
     });
+    
+    // При изменении размера окна
+    window.addEventListener('resize', function() {
+        if (!isMobile()) {
+            if (sidebarOverlay) sidebarOverlay.classList.remove('active');
+            if (sidebar) sidebar.classList.remove('active');
+            document.body.style.overflow = '';
+        } else {
+            // На мобильных убеждаемся, что сайдбар скрыт, если нет active
+            if (sidebar && !sidebar.classList.contains('active')) {
+                sidebar.style.left = '-100%';
+                sidebar.style.setProperty('left', '-100%', 'important');
+            }
+        }
+    });
+    
+    // Инициализация при загрузке - убеждаемся, что на мобильных сайдбар скрыт
+    function initSidebarState() {
+        if (isMobile() && sidebar) {
+            if (!sidebar.classList.contains('active')) {
+                sidebar.style.left = '-100%';
+                sidebar.style.setProperty('left', '-100%', 'important');
+                console.log('Initialized: sidebar hidden on mobile');
+            }
+        }
+    }
+    
+    // Запускаем инициализацию
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSidebarState);
+    } else {
+        setTimeout(initSidebarState, 100);
+    }
 })();
 
 // FAQ Accordion
@@ -139,7 +277,7 @@
             const href = this.getAttribute('href');
             
             // Skip if href is just "#"
-            if (href === '#') {
+            if (href === '#' || href === '#login' || href === '#register' || href === '#go') {
                 return;
             }
             
@@ -147,11 +285,16 @@
             
             if (target) {
                 e.preventDefault();
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = target.offsetTop - headerHeight;
+                const header = document.querySelector('.header');
+                const headerHeight = header ? header.offsetHeight : 0;
+                
+                // Get target position relative to viewport
+                const targetRect = target.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const targetPosition = targetRect.top + scrollTop - headerHeight - 20; // 20px extra spacing
                 
                 window.scrollTo({
-                    top: targetPosition,
+                    top: Math.max(0, targetPosition),
                     behavior: 'smooth'
                 });
             }
@@ -479,7 +622,7 @@
 
 // Spin Rally Countdown Timer
 (function() {
-    const countdownElements = document.querySelectorAll('#spin-rally-countdown, .countdown');
+    const countdownElements = document.querySelectorAll('.countdown');
     
     function updateCountdown(element, minutes, seconds) {
         const mins = String(minutes).padStart(2, '0');
@@ -517,37 +660,179 @@
     });
 })();
 
-// Header Search Input Functionality
+// Spin Rally Alert Bar Functionality
 (function() {
-    const headerSearchInput = document.getElementById('header-search-input');
+    const spinRallyAlert = document.getElementById('spin-rally-alert');
+    const spinRallyAlertClose = document.getElementById('spin-rally-alert-close');
+    const spinRallyAlertTimer = document.getElementById('spin-rally-alert-timer');
+    
+    // Close alert bar
+    if (spinRallyAlertClose && spinRallyAlert) {
+        spinRallyAlertClose.addEventListener('click', function() {
+            spinRallyAlert.classList.add('hidden');
+            // Save state to localStorage
+            localStorage.setItem('spinRallyAlertClosed', 'true');
+        });
+    }
+    
+    // Check if alert was previously closed
+    if (spinRallyAlert && localStorage.getItem('spinRallyAlertClosed') === 'true') {
+        spinRallyAlert.classList.add('hidden');
+    }
+    
+    // Update timer - use countdown from game cards
+    function updateAlertTimer() {
+        if (spinRallyAlertTimer) {
+            // Find active game card countdown
+            const activeCard = document.querySelector('.spin-rally-game-card--active .spin-rally-game-card__time-value');
+            if (activeCard) {
+                spinRallyAlertTimer.textContent = activeCard.textContent;
+            }
+        }
+    }
+    
+    // Update timer every second
+    if (spinRallyAlertTimer) {
+        setInterval(updateAlertTimer, 1000);
+        updateAlertTimer(); // Initial update
+    }
+})();
+
+// Sidebar Search Input Functionality
+(function() {
+    const sidebarSearchInput = document.getElementById('sidebar-search-input');
     const searchModal = document.getElementById('search-modal');
     const searchModalOverlay = document.getElementById('search-modal-overlay');
     const searchInput = document.getElementById('search-input');
     
-    if (headerSearchInput && searchModalOverlay) {
-        // Open search modal on input focus
-        headerSearchInput.addEventListener('focus', function() {
-            if (searchModalOverlay) {
-                searchModalOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                // Focus on search input in modal after animation
-                setTimeout(() => {
-                    if (searchInput) {
-                        searchInput.focus();
-                        // Copy text from header input to modal input
-                        if (headerSearchInput.value) {
-                            searchInput.value = headerSearchInput.value;
-                            // Trigger search
-                            searchInput.dispatchEvent(new Event('input'));
-                        }
+    function openSearchModal(sourceInput) {
+        if (searchModalOverlay) {
+            searchModalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            // Focus on search input in modal after animation
+            setTimeout(() => {
+                if (searchInput) {
+                    searchInput.focus();
+                    // Copy text from source input to modal input
+                    if (sourceInput && sourceInput.value) {
+                        searchInput.value = sourceInput.value;
+                        // Trigger search
+                        searchInput.dispatchEvent(new Event('input'));
                     }
-                }, 300);
-            }
+                }
+            }, 300);
+        }
+    }
+    
+    // Sidebar search input functionality
+    if (sidebarSearchInput && searchModalOverlay) {
+        sidebarSearchInput.addEventListener('focus', function() {
+            openSearchModal(sidebarSearchInput);
         });
         
-        // Also open on click
-        headerSearchInput.addEventListener('click', function() {
+        sidebarSearchInput.addEventListener('click', function() {
             this.focus();
+        });
+    }
+})();
+
+// Sidebar Language and Help Center
+(function() {
+    const sidebarLang = document.querySelector('.sidebar__lang');
+    const sidebarHelp = document.querySelector('.sidebar__help');
+    
+    // Определяем текущий язык по тексту кнопки
+    function getCurrentLang() {
+        if (!sidebarLang) return 'de';
+        const buttonText = sidebarLang.textContent.trim();
+        if (buttonText.includes('ENGLISH') || buttonText.includes('🇬🇧')) {
+            return 'en';
+        }
+        return 'de';
+    }
+    
+    // Переключение языка
+    function switchLanguage() {
+        if (!sidebarLang) return;
+        
+        const currentLang = getCurrentLang();
+        const newLang = currentLang === 'de' ? 'en' : 'de';
+        
+        // Сохраняем язык в localStorage
+        localStorage.setItem('preferredLanguage', newLang);
+        
+        // Меняем атрибут lang у html
+        document.documentElement.setAttribute('lang', newLang);
+        
+        // Меняем текст и флаг кнопки
+        if (newLang === 'en') {
+            sidebarLang.textContent = '🇬🇧 ENGLISH';
+        } else {
+            sidebarLang.textContent = '🇩🇪 DEUTSCH';
+        }
+        
+        console.log('Language switched to:', newLang);
+        
+        // Если есть отдельная английская версия сайта, можно использовать:
+        // if (newLang === 'en') {
+        //     window.location.href = window.location.origin + '/en' + window.location.pathname;
+        // } else {
+        //     window.location.href = window.location.origin + window.location.pathname.replace('/en', '');
+        // }
+    }
+    
+    // Восстанавливаем язык при загрузке
+    function restoreLanguage() {
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang && sidebarLang) {
+            document.documentElement.setAttribute('lang', savedLang);
+            if (savedLang === 'en') {
+                sidebarLang.textContent = '🇬🇧 ENGLISH';
+            } else {
+                sidebarLang.textContent = '🇩🇪 DEUTSCH';
+            }
+        }
+    }
+    
+    // Language switcher
+    if (sidebarLang) {
+        sidebarLang.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            switchLanguage();
+        });
+        
+        // Восстанавливаем язык при загрузке
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', restoreLanguage);
+        } else {
+            restoreLanguage();
+        }
+    }
+    
+    // Help Center link - smooth scroll to FAQ
+    if (sidebarHelp) {
+        sidebarHelp.addEventListener('click', function(e) {
+            e.preventDefault();
+            const faqSection = document.getElementById('faq');
+            if (faqSection) {
+                faqSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                // Закрываем сайдбар на мобильных
+                if (window.innerWidth <= 992) {
+                    const sidebar = document.getElementById('sidebar');
+                    if (sidebar) {
+                        setTimeout(() => {
+                            sidebar.classList.remove('active');
+                            const overlay = document.getElementById('sidebar-overlay');
+                            if (overlay) overlay.classList.remove('active');
+                            document.body.style.overflow = '';
+                        }, 300);
+                    }
+                }
+            }
         });
     }
 })();

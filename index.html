@@ -13,120 +13,11 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Sidebar Overlay for Mobile -->
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-    
     <div class="page-wrapper">
-    <!-- Left Sidebar - Always Visible -->
-    <aside class="sidebar sidebar--always-visible" id="sidebar">
-        <button class="sidebar__close" id="sidebar-close" aria-label="Menü schließen">×</button>
-        <div class="sidebar__header">
-            <div class="sidebar__search">
-                <input type="text" class="sidebar__search-input" placeholder="Games, Categories, Providers" id="sidebar-search-input">
-            </div>
-        </div>
-        
-        <!-- Spin Rally Section -->
-        <div class="sidebar__spin-rally">
-            <div class="spin-rally-box">
-                <p class="spin-rally-title">Spin Rally startet bald!</p>
-                <a href="{{link}}" class="button-image">
-                    <img src="assets/images/button2.webp" alt="Teilnehmen" class="button-image__img">
-                    <span class="button-image__text">TEILNEHMEN</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Featured Promotions -->
-        <div class="sidebar__featured">
-            <a href="#bonus-crab" class="sidebar__featured-link sidebar__featured-link--crab">
-                <span class="sidebar__featured-text">BONUS CRAB</span>
-                <span class="sidebar__featured-icon">
-                    <img src="assets/images/bonus_crab.png" alt="Bonus Crab" loading="lazy">
-                </span>
-            </a>
-            <a href="#wheel" class="sidebar__featured-link sidebar__featured-link--wheel">
-                <span class="sidebar__featured-text">WHEEL OF FORTUNE</span>
-                <span class="sidebar__featured-icon">🎡</span>
-            </a>
-        </div>
-
-        <nav class="sidebar__nav">
-            <a href="#bonuses" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/side-promo.svg" alt="Promotionen" loading="lazy">
-                </span>
-                <span class="sidebar__text">PROMOTIONEN</span>
-            </a>
-            <a href="#gamification" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/side-challenges.svg" alt="Herausforderungen" loading="lazy">
-                </span>
-                <span class="sidebar__text">HERAUSFORDERUNGEN</span>
-            </a>
-            <a href="#gamification" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/side-tournament.svg" alt="Turniere" loading="lazy">
-                </span>
-                <span class="sidebar__text">TURNIERE</span>
-            </a>
-            <a href="#spin-rally" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/side-spinrally.svg" alt="Spin Rally" loading="lazy">
-                </span>
-                <span class="sidebar__text">SPIN RALLY</span>
-            </a>
-            <a href="#gamification" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/side-shop.svg" alt="Shop" loading="lazy">
-                </span>
-                <span class="sidebar__text">SHOP</span>
-            </a>
-            <a href="#advantages" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/side-vip.svg" alt="VIP Levels" loading="lazy">
-                </span>
-                <span class="sidebar__text">VIP-LEVELS</span>
-            </a>
-            <a href="#games" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/side-casino.svg" alt="Casino" loading="lazy">
-                </span>
-                <span class="sidebar__text">CASINO</span>
-            </a>
-            <a href="#live-casino" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/side-live_casino.svg" alt="Live Casino" loading="lazy">
-                </span>
-                <span class="sidebar__text">LIVE CASINO</span>
-            </a>
-            <a href="#jackpots" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/side-jackpots.svg" alt="Jackpots" loading="lazy">
-                </span>
-                <span class="sidebar__text">JACKPOTS</span>
-            </a>
-            <a href="#games" class="sidebar__link">
-                <span class="sidebar__icon">
-                    <img src="assets/images/side-sports.svg" alt="Sportwetten" loading="lazy">
-                </span>
-                <span class="sidebar__text">SPORTWETTEN</span>
-            </a>
-        </nav>
-
-        <div class="sidebar__footer">
-            <button class="sidebar__lang">🇩🇪 DEUTSCH</button>
-            <a href="#faq" class="sidebar__help">❓ HILFEZENTRUM</a>
-        </div>
-    </aside>
-
     <!-- Main Content Wrapper -->
     <div class="main-wrapper">
         <!-- Top Header -->
         <header class="header" id="header">
-            <button class="header__sidebar-toggle" id="sidebar-toggle" aria-label="Menü öffnen">
-                <span>☰</span>
-            </button>
             <div class="header__logo">
                 <a href="#hero">
                     <img src="assets/images/logo-mob@2x.webp" alt="Dragonia Casino" class="logo-image">
@@ -182,7 +73,8 @@
 
     <!-- Game Categories Tabs -->
     <section class="game-categories" id="game-categories">
-        <div class="game-categories__tabs">
+        <div class="container">
+            <div class="game-categories__tabs">
             <button class="game-category-tab active" data-category="providers">
                 <img src="assets/images/top.webp" alt="Anbieter" class="game-category-tab__icon">
                 <span>ANBIETER</span>
@@ -219,6 +111,7 @@
                 <img src="assets/images/blackjack.webp" alt="Blackjack" class="game-category-tab__icon">
                 <span>BLACKJACK</span>
             </button>
+            </div>
         </div>
     </section>
 

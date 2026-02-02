@@ -1,3 +1,4 @@
+
 # Dragonia Casino Landing Page
 
 Landing page для Dragonia Casino на немецком языке.
@@ -31,7 +32,6 @@ dragonia-casino-landing/
 - SEO оптимизация
 - Schema.org разметка для FAQ
 - Модальные окна для регистрации и поиска
-- Боковое меню навигации
 - Анимации и переходы
 
 ## Метаданные

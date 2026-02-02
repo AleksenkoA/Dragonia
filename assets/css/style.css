@@ -3179,6 +3179,8 @@ a {
     .sidebar-overlay.active {
         opacity: 1;
         visibility: visible;
+        display: block;
+        pointer-events: auto;
     }
     
     /* Кнопка открытия sidebar */

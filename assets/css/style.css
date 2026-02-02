@@ -158,6 +158,8 @@ a {
     margin: 0 auto;
     padding: 0 var(--spacing-md);
     box-sizing: border-box;
+    overflow-x: hidden;
+    position: relative;
 }
 
 .main-content {
@@ -167,6 +169,7 @@ a {
     width: 100%;
     overflow-x: hidden;
     max-width: 100%;
+    position: relative;
 }
 
 /* Header */
@@ -694,6 +697,10 @@ a {
 .spin-rally-section {
     padding: var(--spacing-xl) 0;
     background: #1a1a1a; /* Темный фон */
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 .spin-rally__games {
@@ -703,8 +710,13 @@ a {
     overflow-x: auto;
     overflow-y: hidden;
     padding-bottom: var(--spacing-sm);
+    padding-left: 0;
+    padding-right: 0;
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary) rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .spin-rally__games::-webkit-scrollbar {
@@ -737,7 +749,9 @@ a {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     position: relative;
     min-width: 280px;
+    max-width: 100%;
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 .spin-rally-game-card::before {
@@ -1140,13 +1154,16 @@ a {
     overflow-x: auto;
     overflow-y: hidden;
     padding: var(--spacing-sm) 0 var(--spacing-sm);
-    margin: 0 calc(-1 * var(--spacing-md));
-    padding-left: var(--spacing-md);
-    padding-right: var(--spacing-md);
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
     scrollbar-color: var(--color-primary) var(--color-bg-dark);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .games-scroll::-webkit-scrollbar {
@@ -1259,6 +1276,9 @@ a {
     margin-bottom: var(--spacing-lg);
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-md);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .specs-table {
@@ -2257,6 +2277,9 @@ a {
 .page-wrapper {
     display: flex;
     min-height: 100vh;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
 }
 
 /* Left Sidebar - Always Visible */
@@ -2583,6 +2606,10 @@ a {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    width: calc(100% - 32%);
+    max-width: calc(100vw - 32%);
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 /* Для больших экранов используем max-width сайдбара */
@@ -2593,6 +2620,8 @@ a {
     
     .main-wrapper {
         margin-left: 400px;
+        width: calc(100% - 400px);
+        max-width: calc(100vw - 400px);
     }
 }
 
@@ -2961,11 +2990,62 @@ a {
     
     .spin-rally-game-card {
         min-width: 240px;
+        max-width: 100%;
+    }
+    
+    .spin-rally-game-card__image {
+        height: 150px;
+    }
+    
+    .spin-rally-game-card__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    .game-card {
+        max-width: 100%;
+    }
+    
+    .game-card img {
+        height: 350px;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
     }
 }
 
 /* Tablet and Mobile styles - скрываем sidebar на мобильных */
 @media (max-width: 992px) {
+    .table-section,
+    .key-facts,
+    .steps,
+    .advantages,
+    .content-sections,
+    .faq,
+    .big-cta {
+        padding: var(--spacing-xl) 0;
+    }
+    
+    .steps {
+        padding-top: calc(var(--spacing-xl) + 40px);
+    }
+    
+    #registration,
+    #gamification {
+        padding-top: var(--spacing-lg) !important;
+    }
+    
+    .steps__grid {
+        gap: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .content-block {
+        padding: var(--spacing-xl);
+        margin-bottom: var(--spacing-xl);
+    }
     .sidebar--always-visible {
         position: fixed;
         left: -100% !important;
@@ -2992,15 +3072,40 @@ a {
     .main-wrapper {
         margin-left: 0;
         width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+    }
+    
+    .main-content {
+        padding-top: var(--spacing-md);
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
+    }
+    
+    .welcome-banner {
+        margin-top: 0;
+        margin-bottom: var(--spacing-md);
     }
     
     .container {
         padding: 0 var(--spacing-sm);
         max-width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden;
     }
     
     .spin-rally-game-card {
         min-width: 240px;
+        max-width: calc(100vw - 2 * var(--spacing-sm));
+    }
+    
+    .spin-rally__games {
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
+        margin-left: calc(-1 * var(--spacing-sm));
+        margin-right: calc(-1 * var(--spacing-sm));
+        width: calc(100% + 2 * var(--spacing-sm));
     }
     
     .steps__grid {
@@ -3156,8 +3261,16 @@ a {
         font-size: 1.125rem;
     }
     
+    .main-content {
+        padding-top: var(--spacing-sm);
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
+    }
+    
     .welcome-banner {
         min-height: 300px;
+        margin-top: 0;
+        margin-bottom: var(--spacing-md);
     }
     
     .welcome-banner__title {
@@ -3182,12 +3295,41 @@ a {
 
 @media (max-width: 768px) {
     :root {
-        --spacing-xl: 2rem;
-        --spacing-2xl: 3rem;
+        --spacing-xl: 1.5rem;
+        --spacing-2xl: 2rem;
     }
     
     .container {
         padding: 0 var(--spacing-sm);
+    }
+    
+    .table-section,
+    .key-facts,
+    .steps,
+    .advantages,
+    .content-sections,
+    .faq,
+    .big-cta {
+        padding: var(--spacing-lg) 0;
+    }
+    
+    .steps {
+        padding-top: calc(var(--spacing-lg) + 40px);
+    }
+    
+    #registration,
+    #gamification {
+        padding-top: var(--spacing-md) !important;
+    }
+    
+    .steps__grid {
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .content-block {
+        padding: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
     }
     
     .spin-rally-alert {
@@ -3202,6 +3344,24 @@ a {
     
     .spin-rally-game-card {
         min-width: 200px;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .spin-rally-game-card__image {
+        height: 140px;
+    }
+    
+    .spin-rally-game-card__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    .spin-rally__games {
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
     }
     
     .steps__grid {
@@ -3215,6 +3375,23 @@ a {
     
     .advantage-item {
         min-width: 220px;
+    }
+    
+    .game-card {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .game-card img {
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    .games-scroll {
+        padding-left: var(--spacing-sm);
+        padding-right: var(--spacing-sm);
     }
     
     .spin-rally-alert__icon {
@@ -3401,8 +3578,50 @@ a {
 }
 
 @media (max-width: 480px) {
+    :root {
+        --spacing-xl: 1rem;
+        --spacing-2xl: 1.5rem;
+    }
+    
     .container {
         padding: 0 var(--spacing-xs);
+    }
+    
+    .table-section,
+    .key-facts,
+    .steps,
+    .advantages,
+    .content-sections,
+    .faq,
+    .big-cta {
+        padding: var(--spacing-md) 0;
+    }
+    
+    .steps {
+        padding-top: calc(var(--spacing-md) + 40px);
+    }
+    
+    #registration,
+    #gamification {
+        padding-top: var(--spacing-sm) !important;
+    }
+    
+    .steps__grid {
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .content-block {
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .section-title {
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .section-subtitle {
+        margin-bottom: var(--spacing-md);
     }
     
     .header__top {
@@ -3411,6 +3630,24 @@ a {
     
     .spin-rally-game-card {
         min-width: 180px;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .spin-rally-game-card__image {
+        height: 120px;
+    }
+    
+    .spin-rally-game-card__image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    .spin-rally__games {
+        padding-left: var(--spacing-xs);
+        padding-right: var(--spacing-xs);
     }
     
     .key-fact-card {
@@ -3421,13 +3658,38 @@ a {
         min-width: 200px;
     }
     
+    .game-card {
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .game-card img {
+        height: 250px;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    
+    .games-scroll {
+        padding-left: var(--spacing-xs);
+        padding-right: var(--spacing-xs);
+    }
+    
     .header__btn {
         padding: var(--spacing-xs) var(--spacing-sm);
         font-size: 0.75rem;
     }
     
+    .main-content {
+        padding-top: var(--spacing-xs);
+        padding-left: var(--spacing-xs);
+        padding-right: var(--spacing-xs);
+    }
+    
     .welcome-banner {
         min-height: 300px;
+        margin-top: 0;
+        margin-bottom: var(--spacing-sm);
     }
     
     .welcome-banner__inner {
